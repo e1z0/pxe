@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  pxe:
+    build: 
+      context: ./
+      dockerfile: Dockerfile
+    container_name: pxe
+    environment:
+      CMDLINE: "--dhcp-range=192.168.13.254,proxy"
+    volumes:
+      - ./tftp:/var/lib/tftpboot
+    restart: unless-stopped
+    network_mode: "host"
+    cap_add:
+       - NET_ADMIN
